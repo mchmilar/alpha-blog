@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
   end
   
   def edit
-    @article = Article.find(params[:id])
+    set_article
   end
 
   def create
@@ -32,11 +32,11 @@ class ArticlesController < ApplicationController
   end
   
   def show
-    @article = Article.find(params[:id])
+    set_article
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    set_article
     @article.destroy
     flash[:notice] = "Article was successfully deleted"
     redirect_to articles_path
@@ -45,5 +45,9 @@ class ArticlesController < ApplicationController
   private
   	def article_params
   	  params.require(:article).permit(:title, :description)
+ 	end
+ 	
+ 	def set_article
+ 	  @article = Article.find(params[:id])
  	end
 end
